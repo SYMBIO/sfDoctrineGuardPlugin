@@ -1,4 +1,13 @@
+options:
+  type: InnoDB
+  collate: utf8_unicode_ci
+  charset: utf8
+
 sfGuardGroup:
+  options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
   actAs: [Timestampable]
   columns:
     name:
@@ -21,6 +30,10 @@ sfGuardGroup:
       foreignAlias: Groups
 
 sfGuardPermission:
+  options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
   actAs: [Timestampable]
   columns:
     name:
@@ -31,9 +44,12 @@ sfGuardPermission:
 
 sfGuardGroupPermission:
   options:
-    symfony:
-      form:   false
-      filter: false
+      type: InnoDB
+      collate: utf8_unicode_ci
+      charset: utf8
+      symfony:
+        form:   false
+        filter: false
   actAs: [Timestampable]
   columns:
     group_id:
@@ -53,6 +69,10 @@ sfGuardGroupPermission:
       onDelete: CASCADE
 
 sfGuardUser:
+  options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
   actAs: [Timestampable]
   columns:
     first_name: string(255)
@@ -83,6 +103,12 @@ sfGuardUser:
     is_active_idx:
       fields: [is_active]
   relations:
+    cultures:
+      class: WebsiteCulture
+      local: user_id
+      foreign: website_culture_id
+      refClass: sfGuardUserCulture
+      foreignAlias: Users
     Groups:
       class: sfGuardGroup
       local: user_id
@@ -96,8 +122,35 @@ sfGuardUser:
       refClass: sfGuardUserPermission
       foreignAlias: Users
 
+sfGuardUserCulture:
+  options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  columns:
+    user_id:
+      type: integer
+      primary: true
+    website_culture_id:
+      type: integer
+      primary: true
+  relations:
+    sfGuardUser:
+      local: user_id
+      onDelete: CASCADE
+    WebsiteCulture:
+      local: website_culture_id
+      onDelete: CASCADE
+
 sfGuardUserPermission:
   options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
     symfony:
       form:   false
       filter: false
@@ -121,6 +174,9 @@ sfGuardUserPermission:
 
 sfGuardUserGroup:
   options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
     symfony:
       form:   false
       filter: false
@@ -144,6 +200,9 @@ sfGuardUserGroup:
 
 sfGuardRememberKey:
   options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
     symfony:
       form:   false
       filter: false
@@ -162,6 +221,9 @@ sfGuardRememberKey:
 
 sfGuardForgotPassword:
   options:
+    type: InnoDB
+    collate: utf8_unicode_ci
+    charset: utf8
     symfony:
       form:   false
       filter: false
